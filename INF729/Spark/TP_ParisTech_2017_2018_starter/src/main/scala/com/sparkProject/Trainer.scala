@@ -135,12 +135,13 @@ object Trainer {
       .addGrid(cvModel.minDF, Array(55.0, 75.0, 95.0))
       .build()
 
+    val evaluator = new MulticlassClassificationEvaluator()
+      .setLabelCol("final_status")
+      .setPredictionCol("predictions")
+
     val trainValidationSplit = new TrainValidationSplit()
       .setEstimator(pipeline)
-      .setEvaluator(new BinaryClassificationEvaluator()
-        .setLabelCol("final_status")
-        .setRawPredictionCol("raw_predictions")
-      )
+      .setEvaluator(evaluator)
       .setEstimatorParamMaps(paramGrid)
       // 70% of the data will be used for training and the remaining 30% for validation.
       .setTrainRatio(0.7)
@@ -157,26 +158,9 @@ object Trainer {
 
     println(df_WithPredictions.show())
 
-    // F-measure
-    println(" ----- AREA UNDER ROC -----")
-    val evaluator = new BinaryClassificationEvaluator()
-      .setLabelCol("final_status")
-      .setRawPredictionCol("raw_predictions")
-
-    println(evaluator.getMetricName)
-
-    val accuracy = evaluator.evaluate(df_WithPredictions)
-    println("Logistic Regression Classifier Accuracy: " + accuracy)
-
     println(" ----- F-MEASURE -----")
-    val evaluatorMulti = new MulticlassClassificationEvaluator()
-      .setLabelCol("final_status")
-      .setPredictionCol("predictions")
-
-    println(evaluatorMulti.getMetricName)
-
-    val accuracyMulti = evaluatorMulti.evaluate(df_WithPredictions)
-    println("Logistic Regression Classifier Accuracy: " + accuracyMulti)
+    val accuracy = evaluator.evaluate(df_WithPredictions)
+    println("Logistic Regression Classifier Accuracy (F1-Measure): " + accuracy)
 
     // SAVE MODEL
   }

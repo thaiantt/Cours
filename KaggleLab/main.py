@@ -6,6 +6,8 @@ from pyspark.ml import Pipeline
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 from pyspark.ml.tuning import ParamGridBuilder, CrossValidator
 from pyspark.sql.functions import *
+import pandas as pd
+import numpy as np
 
 spark = pyspark.sql.session.SparkSession.builder \
     .master("local") \
@@ -13,10 +15,10 @@ spark = pyspark.sql.session.SparkSession.builder \
     .getOrCreate()
 
 trainingData = spark.read.csv(
-    "/Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/SD701/KaggleLab/train-data.csv", header=True, inferSchema=True)
+    "/Users/thai-anthantrong/Documents/MS_BIG_DATA/Cours/SD701/KaggleLab/train-data.csv", header=True, inferSchema=True)
 
 testData = spark.read.csv(
-    "/Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/SD701/KaggleLab/test-data.csv", header=True, inferSchema=True)
+    "/Users/thai-anthantrong/Documents/MS_BIG_DATA/Cours/SD701/KaggleLab/test-data.csv", header=True, inferSchema=True)
 
 # stages in our Pipeline
 stages = []
@@ -43,16 +45,16 @@ all_cols = ["Elevation", "Aspect", "Slope", "Horizontal_Distance_To_Hydrology", 
 # One-Hot Encoding
 # Try to drop first : Soil_Type1
 categoricalColumns = ["Soil_Type2", "Soil_Type3", "Soil_Type4", "Soil_Type5", "Soil_Type6",
-                      "Soil_Type8", "Soil_Type9", "Soil_Type10", "Soil_Type11", "Soil_Type12",
+                      "Soil_Type9", "Soil_Type10", "Soil_Type11", "Soil_Type12",
                       "Soil_Type13",
                       "Soil_Type14", "Soil_Type16", "Soil_Type17", "Soil_Type18", "Soil_Type19",
                       "Soil_Type20",
-                      "Soil_Type21", "Soil_Type22", "Soil_Type23", "Soil_Type24", "Soil_Type25", "Soil_Type26",
+                      "Soil_Type21", "Soil_Type22", "Soil_Type23", "Soil_Type24", "Soil_Type26",
                       "Soil_Type27",
                       "Soil_Type28", "Soil_Type29", "Soil_Type30", "Soil_Type31", "Soil_Type32", "Soil_Type33",
                       "Soil_Type34",
                       "Soil_Type35", "Soil_Type36", "Soil_Type37", "Soil_Type38", "Soil_Type39", "Soil_Type40"]
-# Soil_Type7, Soil_Type15 : always the same value
+# Soil_Type7,"Soil_Type8",  Soil_Type15, Soil_Type25 : always the same value
 
 for categoricalCol in categoricalColumns:
     # Category Indexing with StringIndexer
@@ -73,12 +75,12 @@ vecAssembler = VectorAssembler(inputCols=assemblerInputs, outputCol="features")
 stages += [vecAssembler]
 
 # Split existing trainingData into training and test sets (30% held out for testing)
-(training, test) = trainingData.randomSplit([0.7, 0.3], seed=100)
+(training, test) = trainingData.randomSplit([0.7, 0.3], seed=1234)
 
 # Train a RandomForest model.
 # dt = RandomForestClassifier(labelCol="label", featuresCol="features", impurity='gini', seed=100, numTrees=100,
 #                             maxDepth=30, maxBins=100)
-dt = RandomForestClassifier(labelCol="label", featuresCol="features", impurity='gini', seed=100)
+dt = RandomForestClassifier(labelCol="label", featuresCol="features", impurity='gini', seed=1234, maxDepth=15, numTrees=100)
 
 # Add stages
 stages += [dt, labelConverter]
@@ -109,32 +111,31 @@ print("Decision Tree Classifier Accuracy before Cross Validation : ", accuracy)
 # We use a ParamGridBuilder to construct a grid of parameters to search over.
 print("Starting CrossValidation")
 paramGrid = (ParamGridBuilder()
-             .addGrid(dt.maxDepth, [20, 25, 28])
-             .addGrid(dt.maxBins, [65, 70, 75])
-             .addGrid(dt.numTrees, [80, 100])
+             .addGrid(dt.maxDepth, [15, 20, 25])
+             #.addGrid(dt.maxBins, [50, 80])
+             .addGrid(dt.numTrees, [100, 110, 120])
              .build())
 
-# Create 5-fold CrossValidator
-cv = CrossValidator(estimator=pipeline, estimatorParamMaps=paramGrid, evaluator=evaluator, numFolds=5)
+# Create k-fold CrossValidator
+cv = CrossValidator(estimator=pipeline, estimatorParamMaps=paramGrid, evaluator=evaluator, numFolds=8)
 
 # Run cross-validation, and choose the best set of parameters.
-cvModel = cv.fit(trainingData)
+cvModel = cv.fit(training)
 
-print("      | numTrees = ", cvModel.bestModel.numTrees)
-print("      | depth = ", cvModel.bestModel.maxDepth)
+# print("      | numTrees = ", cvModel.bestModel.numTrees)
+# print("      | depth = ", cvModel.bestModel.maxDepth)
 
 # Make predictions on test so we can measure the accuracy of our model on new data
-predictions_tr_cv = cvModel.transform(test)
+#predictions_tr_cv = cvModel.transform(test)
 
-accuracy_cv = evaluator.evaluate(predictions_tr_cv)
-print("Decision Tree Classifier Accuracy after Cross Validation : ", accuracy_cv)
+#accuracy_cv = evaluator.evaluate(predictions_tr_cv)
+#print("Decision Tree Classifier Accuracy after Cross Validation : ", accuracy_cv)
 
+# Prediction on real testData
 predictions = cvModel.transform(testData)
 
 # Display what results we can view
 # predictions.printSchema()
-
-print(predictions.repartition(1).select('Id', col('Cover_Type_pred').alias('Cover_Type').cast('integer')))
 
 # Select columns Id and prediction
 (predictions
@@ -144,4 +145,13 @@ print(predictions.repartition(1).select('Id', col('Cover_Type_pred').alias('Cove
  .format('com.databricks.spark.csv')
  .options(header='true')
  .mode('overwrite')
- .save('/Users/thaianthantrong/submission'))
+ .save('/Users/thai-anthantrong/submission'))
+
+###
+
+# Select columns Id and prediction
+predicted = predictions.toPandas()
+real = pd.read_csv("eval.csv")
+print(real.dtypes)
+diff = np.where(predicted['Cover_Type_pred'] != real['Cover_Type'].astype(str))
+print("Final Accuracy : ", 1 - (len(diff[0]) / len(real)))
