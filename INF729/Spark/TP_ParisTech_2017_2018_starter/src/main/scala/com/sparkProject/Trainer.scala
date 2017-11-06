@@ -53,9 +53,9 @@ object Trainer {
    /** CHARGER LE DATASET **/
    /* Load data into a DataFrame */
    /* Replace any false value with null */
-   var df = spark.read.parquet("data_cleaned.parquet")
+   var df = spark.read.parquet("data_cleaned_corr")
 
-    println(df.show())
+    // println(df.show())
 
     /** TF-IDF **/
     // First Stage
@@ -161,6 +161,9 @@ object Trainer {
     println(" ----- F-MEASURE -----")
     val accuracy = evaluator.evaluate(df_WithPredictions)
     println("Logistic Regression Classifier Accuracy (F1-Measure): " + accuracy)
+
+    // PRINT PREDICTIONS
+    df_WithPredictions.groupBy("final_status", "predictions").count.show()
 
     // SAVE MODEL
   }
