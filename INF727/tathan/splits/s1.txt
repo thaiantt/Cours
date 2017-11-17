@@ -1,1 +1,20 @@
-Car Car River
+## Building Spark
+
+Spark is built using [Apache Maven](http://maven.apache.org/).
+To build Spark and its example programs, run:
+
+    build/mvn -DskipTests clean package
+
+(You do not need to do this if you downloaded a pre-built package.)
+More detailed documentation is available from the project site, at
+["Building Spark"](http://spark.apache.org/docs/latest/building-spark.html).
+
+## Interactive Scala Shell
+
+The easiest way to start using Spark is through the Scala shell:
+
+    ./bin/spark-shell
+
+Try the following command, which should return 1000:
+
+    scala> sc.parallelize(1 to 1000).count()

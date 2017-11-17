@@ -53,12 +53,10 @@ object Trainer {
    /** CHARGER LE DATASET **/
    /* Load data into a DataFrame */
    /* Replace any false value with null */
-   var df = spark.read.parquet("data_cleaned_corr")
-
-    // println(df.show())
+   var df = spark.read.parquet("data_cleaned_corr") //Insert your path here
 
     /** TF-IDF **/
-    // First Stage
+    // Split text into words
     println(" ----- 1. TOKENIZER -----")
     val tokenizer = new RegexTokenizer()
       .setPattern("\\W+")
@@ -166,5 +164,6 @@ object Trainer {
     df_WithPredictions.groupBy("final_status", "predictions").count.show()
 
     // SAVE MODEL
+    model.save("trainer_results")
   }
 }
