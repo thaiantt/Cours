@@ -53,7 +53,7 @@ object Trainer {
    /** CHARGER LE DATASET **/
    /* Load data into a DataFrame */
    /* Replace any false value with null */
-   var df = spark.read.parquet("data_cleaned_corr") //Insert your path here
+   var df = spark.read.parquet("/Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/INF729/Spark/data_cleaned_corr") //Insert your path here
 
     /** TF-IDF **/
     // Split text into words
@@ -164,6 +164,8 @@ object Trainer {
     df_WithPredictions.groupBy("final_status", "predictions").count.show()
 
     // SAVE MODEL
-    model.save("trainer_results")
+    model.write.overwrite().save("/Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/INF729/Spark/trainer_results")
+
+    println("########## END PROCESS ##########")
   }
 }
