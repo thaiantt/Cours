@@ -135,7 +135,7 @@ object Trainer {
     val Array(training, test) = df.randomSplit(Array(0.9, 0.1), seed = 12345)
 
     val paramGrid = new ParamGridBuilder()
-      .addGrid(lr.regParam, Array(1.0e-8, 10e-6, 10e-4, 10e-2))
+      .addGrid(lr.regParam, Array(10e-8, 10e-6, 10e-4, 10e-2))
       .addGrid(cvModel.minDF, Array(55.0, 75.0, 95.0))
       .build()
 
