@@ -1,7 +1,7 @@
 [0m[[0mdebug[0m] [0mCalculate mappings...[0m
 [0m[[0minfo[0m] [0mChecking every *.class/*.jar file's SHA-1.[0m
 [0m[[0minfo[0m] [0mMerging files...[0m
-[0m[[0minfo[0m] [0mSHA-1: 2686458fa540159868f017f15deb6fe1821700df[0m
+[0m[[0minfo[0m] [0mSHA-1: 5b7b38977e9a1d4a26e229fc3139832dccbbce44[0m
 [0m[[0minfo[0m] [0mPackaging /Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/INF729/Spark/TP_ParisTech_2017_2018_starter/target/scala-2.11/TP_ParisTech_2017_2018-assembly-1.0.jar ...[0m
 [0m[[0mdebug[0m] [0mInput file mappings:[0m
 [0m[[0mdebug[0m] [0m	com/sparkProject/Preprocessor$$anonfun$udf_country$1$1.class[0m
@@ -102,6 +102,4 @@
 [0m[[0mdebug[0m] [0m	  /Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/INF729/Spark/TP_ParisTech_2017_2018_starter/target/streams/$global/assemblyOption/$global/streams/assembly/6413a0fa00d9b4c10bf5555df4db9fc452e68807_dir/com/sparkProject/WordCount$.class[0m
 [0m[[0mdebug[0m] [0m	com/sparkProject/WordCount.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/INF729/Spark/TP_ParisTech_2017_2018_starter/target/streams/$global/assemblyOption/$global/streams/assembly/6413a0fa00d9b4c10bf5555df4db9fc452e68807_dir/com/sparkProject/WordCount.class[0m
-[0m[[0mdebug[0m] [0m	com/sparkProject/train.csv[0m
-[0m[[0mdebug[0m] [0m	  /Users/thaianthantrong/Documents/MS_BIG_DATA/Cours/INF729/Spark/TP_ParisTech_2017_2018_starter/target/streams/$global/assemblyOption/$global/streams/assembly/6413a0fa00d9b4c10bf5555df4db9fc452e68807_dir/com/sparkProject/train.csv[0m
 [0m[[0minfo[0m] [0mDone packaging.[0m
