@@ -1,0 +1,32 @@
+digraph Tree {
+node [shape=box, style="filled", color="black"] ;
+0 [label="X[0] <= -1.557\ngini = 0.75\nsamples = 313\nvalue = [78, 77, 76, 82]", fillcolor="#d739e504"] ;
+1 [label="X[1] <= -0.193\ngini = 0.691\nsamples = 31\nvalue = [7, 4, 14, 6]", fillcolor="#399de54a"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="X[1] <= -1.034\ngini = 0.497\nsamples = 13\nvalue = [7, 0, 0, 6]", fillcolor="#e5813924"] ;
+1 -> 2 ;
+3 [label="gini = 0.219\nsamples = 8\nvalue = [7, 0, 0, 1]", fillcolor="#e58139db"] ;
+2 -> 3 ;
+4 [label="gini = 0.0\nsamples = 5\nvalue = [0, 0, 0, 5]", fillcolor="#d739e5ff"] ;
+2 -> 4 ;
+5 [label="X[1] <= 1.053\ngini = 0.346\nsamples = 18\nvalue = [0, 4, 14, 0]", fillcolor="#399de5b6"] ;
+1 -> 5 ;
+6 [label="gini = 0.0\nsamples = 14\nvalue = [0, 0, 14, 0]", fillcolor="#399de5ff"] ;
+5 -> 6 ;
+7 [label="gini = 0.0\nsamples = 4\nvalue = [0, 4, 0, 0]", fillcolor="#47e539ff"] ;
+5 -> 7 ;
+8 [label="X[1] <= 0.615\ngini = 0.749\nsamples = 282\nvalue = [71, 73, 62, 76]", fillcolor="#d739e504"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label="X[0] <= -0.198\ngini = 0.744\nsamples = 180\nvalue = [39, 54, 37, 50]", fillcolor="#47e53908"] ;
+8 -> 9 ;
+10 [label="gini = 0.678\nsamples = 78\nvalue = [31, 16, 4, 27]", fillcolor="#e5813914"] ;
+9 -> 10 ;
+11 [label="gini = 0.7\nsamples = 102\nvalue = [8, 38, 33, 23]", fillcolor="#47e53912"] ;
+9 -> 11 ;
+12 [label="X[0] <= 0.119\ngini = 0.742\nsamples = 102\nvalue = [32, 19, 25, 26]", fillcolor="#e5813914"] ;
+8 -> 12 ;
+13 [label="gini = 0.621\nsamples = 47\nvalue = [2, 12, 25, 8]", fillcolor="#399de55f"] ;
+12 -> 13 ;
+14 [label="gini = 0.579\nsamples = 55\nvalue = [30, 7, 0, 18]", fillcolor="#e5813953"] ;
+12 -> 14 ;
+}

@@ -1,0 +1,32 @@
+\BOOKMARK [1][-]{section.1}{Setup}{}% 1
+\BOOKMARK [1][-]{section.2}{IMPLEMENTATION DU CLASSIFIEUR}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Question 1}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Test sur un jeu de donn\351es simple}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Application sur les donn\351es r\351elles}{subsection.2.1}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Question 2}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Question 3}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.4}{Question 4}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.5}{Question 5}{section.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Test sur un jeu de donn\351es simple}{subsection.2.5}% 10
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Test sur les donn\351es r\351elles}{subsection.2.5}% 11
+\BOOKMARK [1][-]{section.3}{UTILISATION DE SCIKIT-LEARN}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Question 1}{section.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.1.1}{R\351sultats obtenus avec Scikit Learn}{subsection.3.1}% 14
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Comparaison avec notre impl\351mentation}{subsection.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Question 2}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Logistic regression}{subsection.3.2}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Linear SVC}{subsection.3.2}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Logistic Regression / LinearSVC}{subsection.3.2}% 19
+\BOOKMARK [2][-]{subsection.3.3}{Question 3}{section.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Test sur un texte simple}{subsection.3.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Test sur les donn\351es r\351elles}{subsection.3.3}% 22
+\BOOKMARK [3][-]{subsubsection.3.3.3}{MultinomialNB}{subsection.3.3}% 23
+\BOOKMARK [3][-]{subsubsection.3.3.4}{LinearSVC}{subsection.3.3}% 24
+\BOOKMARK [2][-]{subsection.3.4}{Question 4}{section.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Test sur un texte simple}{subsection.3.4}% 26
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Test sur les donn\351es r\351elles}{subsection.3.4}% 27
+\BOOKMARK [3][-]{subsubsection.3.4.3}{MultinomialNB}{subsection.3.4}% 28
+\BOOKMARK [3][-]{subsubsection.3.4.4}{LinearSVC}{subsection.3.4}% 29
+\BOOKMARK [2][-]{subsection.3.5}{R\351capitulatif}{section.3}% 30
+\BOOKMARK [3][-]{subsubsection.3.5.1}{--- Scores}{subsection.3.5}% 31
+\BOOKMARK [3][-]{subsubsection.3.5.2}{--- Temps d'ex\351cution}{subsection.3.5}% 32

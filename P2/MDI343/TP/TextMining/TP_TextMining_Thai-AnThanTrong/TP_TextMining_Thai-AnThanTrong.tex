@@ -1,0 +1,1612 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{TP\_TextMining\_Thai-AnThanTrong}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Setup}\label{setup}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}\PY{n+nn}{.}\PY{n+nn}{path} \PY{k}{as} \PY{n+nn}{op}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{BaseEstimator}\PY{p}{,} \PY{n}{ClassifierMixin}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Show the graphs here}
+        \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+        
+        \PY{c+c1}{\PYZsh{} Configuration}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)} \PY{c+c1}{\PYZsh{} figures sizes}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Chose ggplot instead of seaborn}
+        
+        \PY{n}{lw} \PY{o}{=} \PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{} linewidth in all graphics}
+        \PY{n}{sc} \PY{o}{=} \PY{l+m+mi}{60} \PY{c+c1}{\PYZsh{} Scatter size}
+        \PY{n}{alp}\PY{o}{=}\PY{l+m+mf}{0.6}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Load data}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loading dataset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{k+kn}{from} \PY{n+nn}{glob} \PY{k}{import} \PY{n}{glob}
+        \PY{c+c1}{\PYZsh{}filenames\PYZus{}neg = sorted(glob(op.join(\PYZsq{}..\PYZsq{}, \PYZsq{}data\PYZsq{}, \PYZsq{}imdb1\PYZsq{}, \PYZsq{}neg\PYZsq{}, \PYZsq{}*.txt\PYZsq{})))}
+        \PY{c+c1}{\PYZsh{}filenames\PYZus{}pos = sorted(glob(op.join(\PYZsq{}..\PYZsq{}, \PYZsq{}data\PYZsq{}, \PYZsq{}imdb1\PYZsq{}, \PYZsq{}pos\PYZsq{}, \PYZsq{}*.txt\PYZsq{})))}
+        
+        \PY{n}{filenames\PYZus{}neg} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{glob}\PY{p}{(}\PY{n}{op}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{imdb1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{filenames\PYZus{}pos} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{glob}\PY{p}{(}\PY{n}{op}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{imdb1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{texts\PYZus{}neg} \PY{o}{=} \PY{p}{[}\PY{n+nb}{open}\PY{p}{(}\PY{n}{f}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{filenames\PYZus{}neg}\PY{p}{]}
+        \PY{n}{texts\PYZus{}pos} \PY{o}{=} \PY{p}{[}\PY{n+nb}{open}\PY{p}{(}\PY{n}{f}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{filenames\PYZus{}pos}\PY{p}{]}
+        \PY{n}{texts} \PY{o}{=} \PY{n}{texts\PYZus{}neg} \PY{o}{+} \PY{n}{texts\PYZus{}pos}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{texts}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+        \PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{texts\PYZus{}neg}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ documents}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{texts}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loading dataset
+2000 documents
+
+    \end{Verbatim}
+
+    \section{IMPLEMENTATION DU
+CLASSIFIEUR}\label{implementation-du-classifieur}
+
+    \subsection{Question 1}\label{question-1}
+
+    Compléter la fonction count\_words qui va compter le nombre
+d'occurrences de chaque mot dans une liste de string et renvoyer le
+vocabulaire
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{count\PYZus{}words}\PY{p}{(}\PY{n}{texts}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Vectorize text : return count of each word in the text snippets}
+        
+        \PY{l+s+sd}{    Parameters}
+        \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{    texts : list of str}
+        \PY{l+s+sd}{        The texts}
+        
+        \PY{l+s+sd}{    Returns}
+        \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+        \PY{l+s+sd}{    vocabulary : dict}
+        \PY{l+s+sd}{        A dictionary that points to an index in counts for each word.}
+        \PY{l+s+sd}{    counts : ndarray, shape (n\PYZus{}samples, n\PYZus{}features)}
+        \PY{l+s+sd}{        The counts of each word in each text.}
+        \PY{l+s+sd}{        n\PYZus{}samples == number of documents.}
+        \PY{l+s+sd}{        n\PYZus{}features == number of words in vocabulary.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{n}{words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{texts}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+            \PY{n}{n\PYZus{}samples} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{texts}\PY{p}{)}
+            \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{p}{,} \PY{n}{n\PYZus{}features}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Build vocabulary dictionary \PYZhy{} key : word , value : column index in counts array}
+            \PY{n}{vocabulary} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{word} \PY{p}{:} \PY{n}{i} \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{word} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{)} \PY{p}{\PYZcb{}}
+        
+            \PY{c+c1}{\PYZsh{} Build counts}
+            \PY{k}{for} \PY{n}{l}\PY{p}{,} \PY{n}{text} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{texts}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n}{st} \PY{o}{=} \PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+                \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{st}\PY{p}{:}
+                    \PY{n}{counts}\PY{p}{[}\PY{n}{l}\PY{p}{,} \PY{n}{vocabulary}\PY{p}{[}\PY{n}{w}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+        
+            \PY{k}{return} \PY{n}{vocabulary}\PY{p}{,} \PY{n}{counts}
+\end{Verbatim}
+
+
+    \subsubsection{Test sur un jeu de données
+simple}\label{test-sur-un-jeu-de-donnuxe9es-simple}
+
+    On teste dans un premier temps sur un petit jeu de données.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Test on a small text}
+        \PY{n}{text\PYZus{}sample} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello world}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello Telecom and world}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello I love Christmas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Christmas is coming}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Christmas is cool and fun}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{vocabulary\PYZus{}sample}\PY{p}{,} \PY{n}{X\PYZus{}sample} \PY{o}{=} \PY{n}{count\PYZus{}words}\PY{p}{(}\PY{n}{text\PYZus{}sample}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} Vocabulary sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{vocabulary\PYZus{}sample}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n}{df\PYZus{}sample} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{X\PYZus{}sample}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{vocabulary\PYZus{}sample}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} X sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}sample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Vocabulary sample
+\{'fun': 7, 'cool': 6, 'Christmas': 0, 'coming': 5, 'love': 9, 'Telecom': 3, 'world': 10,\\
+ 'is': 8, 'Hello': 1, 'I': 2, 'and': 4\}
+
+--- X sample
+   Christmas  Hello    I  Telecom  and  coming  cool  fun   is  love  world
+0        0.0    1.0  0.0      0.0  0.0     0.0   0.0  0.0  0.0   0.0    1.0
+1        0.0    1.0  0.0      1.0  1.0     0.0   0.0  0.0  0.0   0.0    1.0
+2        1.0    1.0  1.0      0.0  0.0     0.0   0.0  0.0  0.0   1.0    0.0
+3        1.0    0.0  0.0      0.0  0.0     1.0   0.0  0.0  1.0   0.0    0.0
+4        1.0    0.0  0.0      0.0  1.0     0.0   1.0  1.0  1.0   0.0    0.0
+
+    \end{Verbatim}
+
+    \subsubsection{Application sur les données
+réelles}\label{application-sur-les-donnuxe9es-ruxe9elles}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Count words in texts}
+        \PY{n}{vocabulary}\PY{p}{,} \PY{n}{X} \PY{o}{=} \PY{n}{count\PYZus{}words}\PY{p}{(}\PY{n}{texts}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Question 2}\label{question-2}
+
+    Expliquer comment les classes positives et négatives ont été assignées
+sur les critiques de film.
+
+    D'après le fichier poldata.README.2.0, les analyses peuvent ne pas avoir
+explicitement de note. Dans le cas où il existe une note, celle-ci peut
+apparaître à différents sendroits du fichiers et sous différentes
+formes. Dans le cas de nos données on se focalie uniquement sur les
+notations les plus explicites, issues d'un set de règles ad-hoc. La
+classification d'un fichier est donc établie à partir de la première
+note dont on est capable d'identifier.
+
+\begin{itemize}
+\tightlist
+\item
+  Avec un système de cinq étoiles (ou un systeme numérique équivalent),
+  plus de 3.5 étoiles mènent à une critique positive, et moins de 2
+  stars mènent à une critique négative.
+\item
+  Avec un systèmes de quatre étoies (ou un systeme numérique
+  équivalent), plus de 3 stars mènentà une critique positives, et moins
+  de 1.5 stars mènent à une critique négative.
+\item
+  Avec un systèmes constitué de lettres, B ou au-dessus mène à une
+  critique positive, et C- ou en-dessous est considéré comme négatif.
+\end{itemize}
+
+    \subsection{Question 3}\label{question-3}
+
+    Compléter la classe NB pour qu'elle implémente le classifieur Naive
+Bayes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{class} \PY{n+nc}{NB}\PY{p}{(}\PY{n}{BaseEstimator}\PY{p}{,} \PY{n}{ClassifierMixin}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{smoothing}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{smoothing} \PY{o}{=} \PY{n}{smoothing}
+        
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                \PY{n}{N} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{n\PYZus{}words} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{V} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}words}\PY{p}{)}
+                
+                \PY{n}{prior} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{n}{N}\PY{p}{,}  \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{n}{N}\PY{p}{]}\PY{p}{)}
+            
+                \PY{n}{Tct} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}words}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{Tct}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{Tct}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{y} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                
+                \PY{n}{sum\PYZus{}term} \PY{o}{=} \PY{p}{(}\PY{n}{Tct} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{smoothing}\PY{p}{)}
+                \PY{n}{cond\PYZus{}prob} \PY{o}{=} \PY{n}{sum\PYZus{}term} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{sum\PYZus{}term}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{V\PYZus{}} \PY{o}{=} \PY{n}{V}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{prior\PYZus{}} \PY{o}{=} \PY{n}{prior}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cond\PYZus{}prob\PYZus{}} \PY{o}{=} \PY{n}{cond\PYZus{}prob}
+                
+                \PY{k}{return} \PY{n+nb+bp}{self}
+        
+            \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{:}
+                \PY{n}{score} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tile}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{prior\PYZus{}}\PY{p}{,} \PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{score}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cond\PYZus{}prob\PYZus{}}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{flatnonzero}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{,} 
+                                          \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{score}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{score}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)} \PY{o}{==} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Test our homemade NB}
+        \PY{n}{nb} \PY{o}{=} \PY{n}{NB}\PY{p}{(}\PY{p}{)}
+        \PY{n}{nb}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{score} \PY{o}{=} \PY{n}{nb}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{score}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score :  0.836
+
+    \end{Verbatim}
+
+    \subsection{Question 4}\label{question-4}
+
+Evaluer les performances de votre classifieur en cross-validation
+5-folds
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{n\PYZus{}folds} \PY{o}{=} \PY{l+m+mi}{5}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{nb}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{n\PYZus{}folds}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{scores}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} array([ 0.825 ,  0.825 ,  0.8125,  0.8375,  0.825 ])
+\end{Verbatim}
+            
+    \subsection{Question 5}\label{question-5}
+
+Modifier la fonction count\_words pour qu'elle ignore les stop words
+dans le fichier data/english.stop. Les performances sont-elles
+améliorées ?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{filename\PYZus{}stop} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/english.stop}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{stop\PYZus{}words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{filename\PYZus{}stop}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{count\PYZus{}words\PYZus{}improved}\PY{p}{(}\PY{n}{texts}\PY{p}{,} \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{n}{stop\PYZus{}words}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Vectorize text : return count of each word in the text snippets}
+         
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    texts : list of str}
+         \PY{l+s+sd}{        The texts}
+         \PY{l+s+sd}{    stop\PYZus{}words : set of str}
+         \PY{l+s+sd}{        The stop words}
+         
+         \PY{l+s+sd}{    Returns}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    vocabulary : dict}
+         \PY{l+s+sd}{        A dictionary that points to an index in counts for each word.}
+         \PY{l+s+sd}{    counts : ndarray, shape (n\PYZus{}samples, n\PYZus{}features)}
+         \PY{l+s+sd}{        The counts of each word in each text.}
+         \PY{l+s+sd}{        n\PYZus{}samples == number of documents.}
+         \PY{l+s+sd}{        n\PYZus{}features == number of words in vocabulary.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{n}{words} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{texts}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{stop\PYZus{}words}
+             
+             \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+             \PY{n}{n\PYZus{}samples} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{texts}\PY{p}{)}
+             \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{p}{,} \PY{n}{n\PYZus{}features}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Build vocabulary dictionary \PYZhy{} key : word , value : column index in counts array}
+             \PY{n}{vocabulary} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{word} \PY{p}{:} \PY{n}{i} \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{word} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{words}\PY{p}{)}\PY{p}{)} \PY{p}{\PYZcb{}}
+             
+             \PY{c+c1}{\PYZsh{} Build counts}
+             \PY{k}{for} \PY{n}{l}\PY{p}{,} \PY{n}{text} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{texts}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{st} \PY{o}{=} \PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}   
+                 \PY{n}{filtered\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{n}{word} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{st} \PY{k}{if} \PY{n}{word} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{stop\PYZus{}words}\PY{p}{]}    
+                 \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{filtered\PYZus{}words}\PY{p}{:}
+                     \PY{n}{counts}\PY{p}{[}\PY{n}{l}\PY{p}{,} \PY{n}{vocabulary}\PY{p}{[}\PY{n}{w}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             
+             \PY{k}{return} \PY{n}{vocabulary}\PY{p}{,} \PY{n}{counts}
+\end{Verbatim}
+
+
+    \subsubsection{Test sur un jeu de données
+simple}\label{test-sur-un-jeu-de-donnuxe9es-simple}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{vocabulary\PYZus{}sample\PYZus{}improved}\PY{p}{,} \PY{n}{X\PYZus{}sample\PYZus{}improved} \PY{o}{=} \PY{n}{count\PYZus{}words\PYZus{}improved}\PY{p}{(}\PY{n}{text\PYZus{}sample}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} Vocabulary sample improved}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{vocabulary\PYZus{}sample\PYZus{}improved}\PY{p}{)}
+         
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{n}{df\PYZus{}sample\PYZus{}improved} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{X\PYZus{}sample\PYZus{}improved}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{vocabulary\PYZus{}sample\PYZus{}improved}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} X sample improved}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}sample\PYZus{}improved}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Vocabulary sample improved
+\{'fun': 6, 'Christmas': 0, 'coming': 4, 'love': 7, 'Telecom': 3, 'world': 8, \\
+'Hello': 1, 'I': 2, 'cool': 5\}
+
+--- X sample improved
+   Christmas  Hello    I  Telecom  coming  cool  fun  love  world
+0        0.0    1.0  0.0      0.0     0.0   0.0  0.0   0.0    1.0
+1        0.0    1.0  0.0      1.0     0.0   0.0  0.0   0.0    1.0
+2        1.0    1.0  1.0      0.0     0.0   0.0  0.0   1.0    0.0
+3        1.0    0.0  0.0      0.0     1.0   0.0  0.0   0.0    0.0
+4        1.0    0.0  0.0      0.0     0.0   1.0  1.0   0.0    0.0
+
+    \end{Verbatim}
+
+    Les mots tels que \{ "is", "and" \} sont bien retirés du wordcount. En
+comparaison, dans notre première version de la fonction, nous avions le
+résultat suivant :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} X sample}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}sample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- X sample
+   Christmas  Hello    I  Telecom  and  coming  cool  fun   is  love  world
+0        0.0    1.0  0.0      0.0  0.0     0.0   0.0  0.0  0.0   0.0    1.0
+1        0.0    1.0  0.0      1.0  1.0     0.0   0.0  0.0  0.0   0.0    1.0
+2        1.0    1.0  1.0      0.0  0.0     0.0   0.0  0.0  0.0   1.0    0.0
+3        1.0    0.0  0.0      0.0  0.0     1.0   0.0  0.0  1.0   0.0    0.0
+4        1.0    0.0  0.0      0.0  1.0     0.0   1.0  1.0  1.0   0.0    0.0
+
+    \end{Verbatim}
+
+    Quant aux autres mots, les valeurs dans la matrice restent bien
+inchangées.
+
+    \subsubsection{Test sur les données
+réelles}\label{test-sur-les-donnuxe9es-ruxe9elles}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Count words in text}
+         \PY{n}{vocabulary\PYZus{}improved}\PY{p}{,} \PY{n}{X\PYZus{}improved} \PY{o}{=} \PY{n}{count\PYZus{}words\PYZus{}improved}\PY{p}{(}\PY{n}{texts}\PY{p}{,} \PY{n}{stop\PYZus{}words}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Test our homemade NB}
+         \PY{n}{nb\PYZus{}stop\PYZus{}words} \PY{o}{=} \PY{n}{NB}\PY{p}{(}\PY{p}{)}
+         \PY{n}{nb\PYZus{}stop\PYZus{}words}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}improved}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}stop\PYZus{}words} \PY{o}{=} \PY{n}{nb\PYZus{}stop\PYZus{}words}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}improved}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{score\PYZus{}stop\PYZus{}words}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score :  0.832
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} We can also do a cross validation here}
+         \PY{n}{scores\PYZus{}stop\PYZus{}words} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{nb\PYZus{}stop\PYZus{}words}\PY{p}{,} \PY{n}{X\PYZus{}improved}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{n\PYZus{}folds}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{scores\PYZus{}stop\PYZus{}words}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} array([ 0.8175,  0.8275,  0.8325,  0.8525,  0.8125])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score with stop words : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{score}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score without stop words : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{score\PYZus{}stop\PYZus{}words}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross validation scores with stop words : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross validation scores without stop words : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores\PYZus{}stop\PYZus{}words}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score with stop words :  0.836
+Score without stop words :  0.832
+
+Cross validation scores with stop words :  [ 0.825   0.825   0.8125  0.8375  0.825 ]
+Cross validation scores without stop words :  [ 0.8175  0.8275  0.8325  0.8525  0.8125]
+
+    \end{Verbatim}
+
+    On obtient donc un meilleur score lorsqu'on prend en compte les stop
+words dans le word count. La différence n'est cependant pas
+significative. Compte tenu de la faible différence, on peut se demander
+si les stop words rajoutent du bruit, c'est-à-dire qu'ils ne contribuent
+pas majoritairement à la détermination d'une classe de documents.
+
+Cependant, on peut remarquer que certains stop words peuvent
+probablement nuancer une opinion et ainsi avoir un impact sur la
+classification d'un document. Les connecteurs logiques d'opposition tels
+que "However" peuvent en effet nuancer une opinion et donner l'aspect
+négatif du texte, ainsi que les verbes à la forme négative tels que
+"don't".
+
+    \section{UTILISATION DE SCIKIT-LEARN}\label{utilisation-de-scikit-learn}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{n\PYZus{}folds} \PY{o}{=} \PY{l+m+mi}{5}
+\end{Verbatim}
+
+
+    \subsection{Question 1}\label{question-1}
+
+Comparer votre implémentation avec scikit-learn
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{MultinomialNB}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{model\PYZus{}nb} \PY{o}{=} \PY{n}{MultinomialNB}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{apply\PYZus{}pipeline}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}nb}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{n}{texts}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                            \PY{n}{analyzer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}folds}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Create a pipeline for model and a cross validation}
+         
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    model : a sklearn model}
+         \PY{l+s+sd}{        The model}
+         \PY{l+s+sd}{    texts : list of str}
+         \PY{l+s+sd}{        The texts}
+         \PY{l+s+sd}{    ngram\PYZus{}range : tuple}
+         \PY{l+s+sd}{        The ngram range for the CountVectorizer}
+         \PY{l+s+sd}{    analyze : str}
+         \PY{l+s+sd}{        The analyzer for the CountVectorizer}
+         \PY{l+s+sd}{    n\PYZus{}fold : int}
+         \PY{l+s+sd}{        the number of folds for the cross validation}
+         \PY{l+s+sd}{    }
+         
+         \PY{l+s+sd}{    Returns}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    scores : list of floats}
+         \PY{l+s+sd}{        The obtained score after cross validation}
+         \PY{l+s+sd}{    elapsed : list of float}
+         \PY{l+s+sd}{        The time elapsed during execution}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{n}{ngram\PYZus{}range}\PY{p}{,} \PY{n}{analyzer}\PY{o}{=}\PY{n}{analyzer}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{model}\PY{p}{)}
+             \PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n}{text}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{n\PYZus{}folds}\PY{p}{)}
+             \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{elapsed} \PY{o}{=} \PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}
+             \PY{k}{return} \PY{n}{scores}\PY{p}{,} \PY{n}{elapsed}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{test\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}nb}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{n}{texts}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} \PY{n}{n\PYZus{}folds}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Apply pipeline and cross validation for analyzers words, bigrams, and chars}
+         \PY{l+s+sd}{    Parameters}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    model : a sklearn model}
+         \PY{l+s+sd}{        The model}
+         \PY{l+s+sd}{    texts : list of str}
+         \PY{l+s+sd}{        The texts}
+         \PY{l+s+sd}{    n\PYZus{}fold : int}
+         \PY{l+s+sd}{        the number of folds for the cross validation}
+         \PY{l+s+sd}{        }
+         \PY{l+s+sd}{    Returns}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    scores : lists of floats}
+         \PY{l+s+sd}{        The obtained scores for the three tests}
+         \PY{l+s+sd}{    elapsed : list of float}
+         \PY{l+s+sd}{        The time elapsed during execution}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{} Words}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} Words}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{scores\PYZus{}w}\PY{p}{,} \PY{n}{elapsed\PYZus{}w} \PY{o}{=} \PY{n}{apply\PYZus{}pipeline}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{n}{text}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} 
+                                                  \PY{n}{n\PYZus{}folds}\PY{o}{=}\PY{n}{n\PYZus{}folds}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Scores: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores\PYZus{}w}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{ (+/\PYZhy{} }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{scores\PYZus{}w}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scores\PYZus{}w}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Time elapsed (s): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{elapsed\PYZus{}w}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Bigrams}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} Bigrams}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{scores\PYZus{}b}\PY{p}{,} \PY{n}{elapsed\PYZus{}b} \PY{o}{=} \PY{n}{apply\PYZus{}pipeline}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{n}{text}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} 
+                                                  \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{analyzer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                  \PY{n}{n\PYZus{}folds}\PY{o}{=}\PY{n}{n\PYZus{}folds}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Scores: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{ (+/\PYZhy{} }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{scores\PYZus{}b}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Time elapsed (s): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{elapsed\PYZus{}b}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Char}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{} Chars}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{scores\PYZus{}c}\PY{p}{,} \PY{n}{elapsed\PYZus{}c} \PY{o}{=} \PY{n}{apply\PYZus{}pipeline}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{n}{text}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{,} 
+                                                  \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{analyzer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{char}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                  \PY{n}{n\PYZus{}folds}\PY{o}{=}\PY{n}{n\PYZus{}folds}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Scores: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{ (+/\PYZhy{} }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{scores\PYZus{}c}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    | Time elapsed (s): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{elapsed\PYZus{}c}\PY{p}{)}    
+             
+             \PY{k}{return} \PY{p}{[}\PY{n}{scores\PYZus{}w}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{elapsed\PYZus{}w}\PY{p}{,} \PY{n}{elapsed\PYZus{}b}\PY{p}{,} \PY{n}{elapsed\PYZus{}c}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{p}{[}\PY{n}{scores\PYZus{}w}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{elapsed\PYZus{}w}\PY{p}{,} \PY{n}{elapsed\PYZus{}b}\PY{p}{,} \PY{n}{elapsed\PYZus{}c}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Words
+    | Scores:  [ 0.81   0.825  0.81   0.825  0.79 ]
+    | Accuracy: 0.81 (+/- 0.03)
+    | Time elapsed (s):  7.997492074966431
+--- Bigrams
+    | Scores:  [ 0.8175  0.8375  0.8225  0.8425  0.8325]
+    | Accuracy: 0.83 (+/- 0.02)
+    | Time elapsed (s):  33.28206276893616
+--- Chars
+    | Scores:  [ 0.8225  0.825   0.8175  0.845   0.7975]
+    | Accuracy: 0.82 (+/- 0.03)
+    | Time elapsed (s):  391.97445607185364
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{scores\PYZus{}nb} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsubsection{Résultats obtenus avec Scikit
+Learn}\label{ruxe9sultats-obtenus-avec-scikit-learn}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Plot all}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores\PYZus{}w}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mediumseagreen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{palevioletred}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N\PYZus{}folds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross Validation for MultinomialNB and CountVectorizer}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Comparaison avec notre
+implémentation}\label{comparaison-avec-notre-impluxe9mentation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Compare with homemade NB}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores\PYZus{}w}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mediumseagreen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{palevioletred}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                  \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lightslategrey}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Homemade NB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N\PYZus{}folds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scikit learn}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s MultinomialNB vs. Homemade NB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Le graphique ci-dessus présente les courbes obtenues avec
+l'implémentationde Naive Bayes de Scikit Learn, ainsi que la courbe
+obtenue dans la partie précédente avec notre propre implémentation du
+modèle. - D'une part les résultats obtenus avec Scikit learn semblent
+globalement meilleurs qu'avec notre implémentation (avec Bigrams et
+Chars) - D'autre part on remarque des différences entre les différents
+types d'analyzer. Les valeurs de scores sont plus élevées avec Bigrams
+et Chars qu'avec Words
+
+Les scores obtenus avec les bigrammes sont visiblement meilleurs que
+pour les chars et les mots. L'idée de prendre en compte les bigrammes et
+d'obtenir la probabilité qu'un mot A apparaisse dans notre extrait,
+suivi du mot B. La fréquence de distribution d'un bigramme dans une
+chaine permet de déterminer la probabilité d'un token, connaissant le
+token précédent.
+
+En prenant en compte les chaînes de caractères, les scores sont moins
+bons que pour les mots et les bigrammes. Contrairement aux bigrammes où
+la prise en compte de l'enchaînement des mots améliore de score, la
+prise en compte de sous-chaines de caractères seules et non de
+probabilités de succession d'une autre chaîne dégrade les résultats.
+
+    Les graphiques ci-dessus permettent de visualiser les courbes de score,
+ainsi que les valeurs d'écart-type associées. On remarque que
+l'écart-type de la dernière courbe - correspondont à l'analyzer char -
+est plus bas que dans les deux autres cas.
+
+    \subsection{Question 2}\label{question-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Define a plot function for the following questions}
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores1}\PY{p}{,} \PY{n}{scores2}\PY{p}{,} \PY{n}{model\PYZus{}name1}\PY{p}{,} \PY{n}{model\PYZus{}name2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mediumseagreen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mediumseagreen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name2}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name2}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{palevioletred}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}folds}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{scores2}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{n}{lw}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} 
+                      \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{palevioletred}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{model\PYZus{}name2}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N\PYZus{}folds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Comparison }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{model\PYZus{}name1} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ vs. }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{model\PYZus{}name2} 
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Logistic regression}\label{logistic-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+         
+         \PY{c+c1}{\PYZsh{} Test with Logistic Regression}
+         \PY{n}{model\PYZus{}lr} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}lr}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}lr}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}lr}\PY{p}{]}\PY{p}{,} \\
+         \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}lr}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}lr}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}lr}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}lr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Words
+    | Scores:  [ 0.815   0.8425  0.8375  0.8675  0.845 ]
+    | Accuracy: 0.84 (+/- 0.03)
+    | Time elapsed (s):  27.586987018585205
+--- Bigrams
+    | Scores:  [ 0.8225  0.855   0.85    0.87    0.865 ]
+    | Accuracy: 0.85 (+/- 0.03)
+    | Time elapsed (s):  116.26668787002563
+--- Chars
+    | Scores:  [ 0.8275  0.835   0.8425  0.845   0.855 ]
+    | Accuracy: 0.84 (+/- 0.02)
+    | Time elapsed (s):  613.3107368946075
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Compare LogisticRegression with MultinomialNB}
+         \PY{n}{scores\PYZus{}lr} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}lr}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}lr}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}lr}\PY{p}{]}
+         
+         \PY{n}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores\PYZus{}lr}\PY{p}{,} \PY{n}{scores\PYZus{}nb}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LogisticRegression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MultinomialNB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Avec LogisticRegression on obtient de meilleurs résultats dans les trois
+cas (Words, Bigrams, Chars) qu'avec MultinomialNB.
+
+    \subsubsection{Linear SVC}\label{linear-svc}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{LinearSVC}
+         
+         \PY{c+c1}{\PYZsh{} Test with LinearSVC}
+         \PY{n}{model\PYZus{}svc} \PY{o}{=} \PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}
+         
+         \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc}\PY{p}{]}\PY{p}{,} \\
+         \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}svc}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}svc}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}svc}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}svc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Words
+    | Scores:  [ 0.8025  0.84    0.83    0.85    0.84  ]
+    | Accuracy: 0.83 (+/- 0.03)
+    | Time elapsed (s):  15.670583009719849
+--- Bigrams
+    | Scores:  [ 0.8175  0.845   0.8475  0.87    0.87  ]
+    | Accuracy: 0.85 (+/- 0.04)
+    | Time elapsed (s):  147.2756040096283
+--- Chars
+    | Scores:  [ 0.81   0.835  0.84   0.845  0.83 ]
+    | Accuracy: 0.83 (+/- 0.02)
+    | Time elapsed (s):  569.5203940868378
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Compare LinearSVC with MultinomialNB}
+         \PY{n}{scores\PYZus{}svc} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc}\PY{p}{]}
+         
+         \PY{n}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores\PYZus{}svc}\PY{p}{,} \PY{n}{scores\PYZus{}nb}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LinearSVC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MultinomialNB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Avec LinearSVC on obtient de meilleurs résultats dans les trois cas
+(Words, Bigrams, Chars) qu'avec MultinomialNB.
+
+    \subsubsection{Logistic Regression /
+LinearSVC}\label{logistic-regression-linearsvc}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Finally : Compare LogisticRegression with LinearSVC}
+         \PY{n}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores\PYZus{}lr}\PY{p}{,} \PY{n}{scores\PYZus{}svc}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LogisticRegression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LinearSVC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    On a démontré au-dessus que les modèles LogisticRegression et LinearSVC
+mènent tous les deux à de meilleurs scores de prédiction que
+MultinomialNB. Les deux modèles permetttent en effet de tenir compte des
+dépendances entre les attributs, et donc en particulier dans une analyse
+sémantique, d'où les meilleurs résultats. En comparant désormais les
+deux modèles, on remarque que LogisticRegression obtient dans l'ensemble
+de meilleurs scores que LinearSVC dans le cadre de nos données.
+
+Dans la suite du TP nous poursuivrons avec MultinomialNB et LinearSVC
+(par choix).
+
+    \subsection{Question 3}\label{question-3}
+
+Utiliser la libraire NLTK afin de procéder à une racinisation
+(stemming). Vous utiliserez la classe SnowballStemmer
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{k+kn}{from} \PY{n+nn}{nltk} \PY{k}{import} \PY{n}{SnowballStemmer}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{stemmer\PYZus{}test} \PY{o}{=} \PY{n}{SnowballStemmer}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{english}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{stemmer\PYZus{}test}\PY{o}{.}\PY{n}{stem}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{running}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} small test}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+run
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{def} \PY{n+nf}{stem}\PY{p}{(}\PY{n}{texts}\PY{o}{=}\PY{n}{texts}\PY{p}{)}\PY{p}{:}
+             \PY{n}{stemmed} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{stemmer} \PY{o}{=} \PY{n}{SnowballStemmer}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{english}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{text} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{texts}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{stemmed}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{words} \PY{o}{=} \PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{words}\PY{p}{:}
+                     \PY{n}{stemmed}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{stemmer}\PY{o}{.}\PY{n}{stem}\PY{p}{(}\PY{n}{word}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}    
+             \PY{k}{return} \PY{n}{stemmed}
+\end{Verbatim}
+
+
+    \subsubsection{Test sur un texte simple}\label{test-sur-un-texte-simple}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{simple} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I eat he eats}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{She loves eating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{simple\PYZus{}stemmed} \PY{o}{=} \PY{n}{stem}\PY{p}{(}\PY{n}{texts}\PY{o}{=}\PY{n}{simple}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{simple\PYZus{}stemmed}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['i eat he eat ', 'she love eat ']
+
+    \end{Verbatim}
+
+    \subsubsection{Test sur les données
+réelles}\label{test-sur-les-donnuxe9es-ruxe9elles}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{stemmed} \PY{o}{=} \PY{n}{stem}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{MultinomialNB}\label{multinomialnb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}stm}\PY{p}{]}\PY{p}{,}\\
+ \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}stm}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{text}\PY{o}{=}\PY{n}{stemmed}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Words
+    | Scores:  [ 0.795   0.815   0.8     0.83    0.8025]
+    | Accuracy: 0.81 (+/- 0.03)
+    | Time elapsed (s):  8.297225952148438
+--- Bigrams
+    | Scores:  [ 0.8275  0.84    0.815   0.8425  0.8175]
+    | Accuracy: 0.83 (+/- 0.02)
+    | Time elapsed (s):  45.853594064712524
+--- Chars
+    | Scores:  [ 0.815   0.8125  0.8125  0.8525  0.8125]
+    | Accuracy: 0.82 (+/- 0.03)
+    | Time elapsed (s):  333.6116421222687
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} Compare new scores with stemming with original MultinomialNB}
+         \PY{n}{scores\PYZus{}stm} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}stm}\PY{p}{]}
+         
+         \PY{n}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}nb}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MultinomialNB + Stemming}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MultinomialNB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Les scores obtenus après une cross validation avec la racinisation sont
+globalement plus faibles qu'auparavant.
+
+La racinisation coupe les mots écrits sous leur forme exacte et produit
+des bases de mots pour la classification. Cependant, les détails
+associés à a forme exacte du mots peuvent jouer un rôle primordial dans
+le texte. La racinisation dégrade alors la classification.
+
+    \subsubsection{LinearSVC}\label{linearsvc}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc\PYZus{}stm}\PY{p}{]}\PY{p}{,} \\
+\PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}svc\PYZus{}stm}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}svc}\PY{p}{,}\\
+ \PY{n}{text}\PY{o}{=}\PY{n}{stemmed}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Words
+    | Scores:  [ 0.815   0.85    0.825   0.8225  0.86  ]
+    | Accuracy: 0.83 (+/- 0.03)
+    | Time elapsed (s):  13.600510120391846
+--- Bigrams
+    | Scores:  [ 0.8375  0.8625  0.8475  0.855   0.88  ]
+    | Accuracy: 0.86 (+/- 0.03)
+    | Time elapsed (s):  50.19047284126282
+--- Chars
+    | Scores:  [ 0.8275  0.8225  0.84    0.83    0.8275]
+    | Accuracy: 0.83 (+/- 0.01)
+    | Time elapsed (s):  564.7897400856018
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Compare new scores with stemming with original MultinomialNB}
+         \PY{n}{scores\PYZus{}svc\PYZus{}stm} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc\PYZus{}stm}\PY{p}{]}
+         
+         \PY{n}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}svc}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LinearSVC + Stemming}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LinearSVC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Dans le cas de LinearSVC, la racinisation amène à des scores
+relativement satisfaisants par rapport au modèle LinearSVC de bas. Cela
+peut s'expliquer par le fait que le modèle prend en compte les
+dépendances entre les attributs, ce qui mène à des résultats améliorés
+dans le cas d'une analyse sémantique.
+
+    \subsection{Question 4}\label{question-4}
+
+Filtrer les mots par catégorie grammaticale (POS : Part Of Speech) et ne
+garder que les noms, les verbes, les adverbes et les adjectifs pour la
+classification
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{from} \PY{n+nn}{nltk} \PY{k}{import} \PY{n}{Text}
+         \PY{k+kn}{from} \PY{n+nn}{nltk} \PY{k}{import} \PY{n}{pos\PYZus{}tag}
+         \PY{k+kn}{from} \PY{n+nn}{nltk} \PY{k}{import} \PY{n}{word\PYZus{}tokenize}
+         
+         \PY{c+c1}{\PYZsh{}import nltk}
+         \PY{c+c1}{\PYZsh{}nltk.download()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Define a filtering function}
+         \PY{k}{def} \PY{n+nf}{filter\PYZus{}pos}\PY{p}{(}\PY{n}{texts}\PY{o}{=}\PY{n}{texts}\PY{p}{)}\PY{p}{:}
+             \PY{n}{filtered} \PY{o}{=} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NOUN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+                                  \PY{o+ow}{or} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{VERB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+                                  \PY{o+ow}{or} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ADV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+                                  \PY{o+ow}{or} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ADJ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{pos\PYZus{}tag}\PY{p}{(}\PY{n}{word\PYZus{}tokenize}\PY{p}{(}\PY{n}{txt}\PY{p}{)}\PY{p}{,}\\
+                                   \PY{n}{tagset}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{universal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{txt} \PY{o+ow}{in} \PY{n}{texts}\PY{p}{]}
+             \PY{k}{return} \PY{n}{filtered}
+         
+         \PY{k}{def} \PY{n+nf}{apply\PYZus{}pos\PYZus{}tag}\PY{p}{(}\PY{n}{filtered}\PY{p}{)}\PY{p}{:}
+             \PY{n}{postagged} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{tuples} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{filtered}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{postagged}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{tuples}\PY{p}{:}
+                     \PY{n}{postagged}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{return} \PY{n}{postagged}
+\end{Verbatim}
+
+
+    \subsubsection{Test sur un texte simple}\label{test-sur-un-texte-simple}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{simple\PYZus{}new} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Today is a beautiful day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \\ \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Christmas is coming}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\\
+ \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Tonight is freezing and cold}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{pos\PYZus{}simple} \PY{o}{=} \PY{n}{filter\PYZus{}pos}\PY{p}{(}\PY{n}{texts}\PY{o}{=}\PY{n}{simple\PYZus{}new}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{pos\PYZus{}simple}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[('Today', 'NOUN'), ('is', 'VERB'), ('beautiful', 'ADJ'), ('day', 'NOUN')],\\
+ [('Christmas', 'NOUN'), ('is', 'VERB'), ('coming', 'VERB')], [('Tonight', 'NOUN'),\\
+  ('is', 'VERB'), ('freezing', 'VERB'), ('cold', 'ADJ')]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{postagged\PYZus{}simple} \PY{o}{=} \PY{n}{apply\PYZus{}pos\PYZus{}tag}\PY{p}{(}\PY{n}{pos\PYZus{}simple}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{postagged\PYZus{}simple}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['Today is beautiful day ', 'Christmas is coming ', 'Tonight is freezing cold ']
+
+    \end{Verbatim}
+
+    \subsubsection{Test sur les données
+réelles}\label{test-sur-les-donnuxe9es-ruxe9elles}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{filtered} \PY{o}{=} \PY{n}{filter\PYZus{}pos}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{postagged} \PY{o}{=} \PY{n}{apply\PYZus{}pos\PYZus{}tag}\PY{p}{(}\PY{n}{filtered}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{MultinomialNB}\label{multinomialnb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}pst}\PY{p}{]}\PY{p}{,}\\
+ \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}pst}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{text}\PY{o}{=}\PY{n}{postagged}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Words
+    | Scores:  [ 0.8025  0.8175  0.805   0.835   0.795 ]
+    | Accuracy: 0.81 (+/- 0.03)
+    | Time elapsed (s):  5.83814001083374
+--- Bigrams
+    | Scores:  [ 0.8075  0.835   0.83    0.8625  0.8275]
+    | Accuracy: 0.83 (+/- 0.04)
+    | Time elapsed (s):  25.249979972839355
+--- Chars
+    | Scores:  [ 0.805   0.8175  0.8     0.85    0.8   ]
+    | Accuracy: 0.81 (+/- 0.04)
+    | Time elapsed (s):  206.31769680976868
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{} Compare new scores with postagged with original MultinomialNB}
+         \PY{n}{scores\PYZus{}pst} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}pst}\PY{p}{]}
+         
+         \PY{n}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}nb}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MultinomialNB + Postag}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MultinomialNB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{LinearSVC}\label{linearsvc}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc\PYZus{}pst}\PY{p}{]}\PY{p}{,} \\
+\PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}svc\PYZus{}pst}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}svc}\PY{p}{,} \PY{n}{text}\PY{o}{=}\PY{n}{postagged}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+--- Words
+    | Scores:  [ 0.81   0.84   0.82   0.845  0.84 ]
+    | Accuracy: 0.83 (+/- 0.03)
+    | Time elapsed (s):  9.077815055847168
+--- Bigrams
+    | Scores:  [ 0.8225  0.8575  0.8325  0.8575  0.855 ]
+    | Accuracy: 0.84 (+/- 0.03)
+    | Time elapsed (s):  51.60603308677673
+--- Chars
+    | Scores:  [ 0.81    0.82    0.815   0.8325  0.835 ]
+    | Accuracy: 0.82 (+/- 0.02)
+    | Time elapsed (s):  329.51761507987976
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} Compare new scores with postagged with original MultinomialNB}
+         \PY{n}{scores\PYZus{}svc\PYZus{}pst} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc\PYZus{}pst}\PY{p}{]}
+         
+         \PY{n}{plot\PYZus{}comparison}\PY{p}{(}\PY{n}{scores\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}svc}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LinearSVC + Postag}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LinearSVC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_97_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    De manière générale, les résultats obtenus avec pos\_tag sont moins bons
+que les résultats obtenus avec le modèle d'origine, pour le modèle
+MultinomialNB comme pour LinearSVC. Le filtrage des mots par catégorie
+grammaticale ne semble pas améliorer les resultats de classification.
+
+    \subsection{Récapitulatif}\label{ruxe9capitulatif}
+
+    \subsubsection{-\/-\/- Scores}\label{scores}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{models\PYZus{}originals} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w}\PY{p}{,} \PY{n}{scores\PYZus{}b}\PY{p}{,} \PY{n}{scores\PYZus{}c}\PY{p}{]}
+         \PY{n}{models\PYZus{}stemming} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}stm}\PY{p}{,}  \PY{n}{scores\PYZus{}b\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}stm}\PY{p}{]}
+         \PY{n}{models\PYZus{}postag} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}stm}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{models\PYZus{}svc} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc}\PY{p}{]}
+         \PY{n}{models\PYZus{}svc\PYZus{}stemming} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc\PYZus{}stm}\PY{p}{]}
+         \PY{n}{models\PYZus{}svc\PYZus{}postag} \PY{o}{=} \PY{p}{[}\PY{n}{scores\PYZus{}w\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}b\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{scores\PYZus{}c\PYZus{}svc\PYZus{}stm}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{models\PYZus{}originals}\PY{p}{)}\PY{p}{)}
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.2}
+         
+         \PY{n}{rects1} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{p}{[}\PY{n}{mean}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}originals}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultinomialNB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{skyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{n}{yerr}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}originals}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{rects2} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{n}{width}\PY{p}{,} \PY{p}{[}\PY{n}{mean}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}stemming}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultinomialNB + Stemming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{n}{yerr}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}stemming}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{rects3} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{width}\PY{p}{,} \PY{p}{[}\PY{n}{mean}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}postag}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultinomialNB + Postag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightpink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{n}{yerr}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}postag}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add some text for labels, title and axes ticks}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean Scores by preprocessing for MultinomialNB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{width} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{autolabel}\PY{p}{(}\PY{n}{rects}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Attach a text label above each bar displaying its height}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{for} \PY{n}{rect} \PY{o+ow}{in} \PY{n}{rects}\PY{p}{:}
+                 \PY{n}{height} \PY{o}{=} \PY{n}{rect}\PY{o}{.}\PY{n}{get\PYZus{}height}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{rect}\PY{o}{.}\PY{n}{get\PYZus{}x}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{rect}\PY{o}{.}\PY{n}{get\PYZus{}width}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{2.}\PY{p}{,} \PY{l+m+mf}{1.02}\PY{o}{*}\PY{n}{height}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{height}\PY{p}{,}
+                         \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{va}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects1}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects2}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects3}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Bien que l'on obtient des valeurs de score différentes selon les modèles
+utilisés durant cette partie, les valeurs ont des ordres de grandeur
+tout à fait similaires. Des traitements des données avant l'utilisation
+du modèle, comme la racinisation, semblent toutefois diminuer le score
+final. En comparaison avec le Naive Bayes, LinearSVC amène à de
+meilleurs scores sur nos données.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{models\PYZus{}originals}\PY{p}{)}\PY{p}{)}
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.2}
+         
+         \PY{n}{rects1\PYZus{}svc} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{p}{[}\PY{n}{mean}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}svc}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LinearSVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{skyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{n}{yerr}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}svc}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{rects2\PYZus{}svc} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{n}{width}\PY{p}{,} \PY{p}{[}\PY{n}{mean}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}svc\PYZus{}stemming}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LinearSVC + Stemming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{n}{yerr}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}svc\PYZus{}stemming}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{rects3\PYZus{}svc} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{width}\PY{p}{,} \PY{p}{[}\PY{n}{mean}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}svc\PYZus{}postag}\PY{p}{]}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LinearSVC + Postag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightpink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                         \PY{n}{yerr}\PY{o}{=}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{l}\PY{p}{)} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{models\PYZus{}svc\PYZus{}postag}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add some text for labels, title and axes ticks}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean Scores by preprocessing for LinearSVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{width} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects1\PYZus{}svc}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects2\PYZus{}svc}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects3\PYZus{}svc}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lower right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_105_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{-\/-\/- Temps d'exécution}\label{temps-dexuxe9cution}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{elapsed\PYZus{}originals} \PY{o}{=} \PY{p}{[}\PY{n}{elapsed\PYZus{}w}\PY{p}{,} \PY{n}{elapsed\PYZus{}b}\PY{p}{,} \PY{n}{elapsed\PYZus{}c}\PY{p}{]}
+         \PY{n}{elapsed\PYZus{}stemming} \PY{o}{=} \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}stm}\PY{p}{]}
+         \PY{n}{elapsed\PYZus{}postag} \PY{o}{=} \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}stm}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{elapsed\PYZus{}svc} \PY{o}{=} \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}svc}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}svc}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}svc}\PY{p}{]}
+         \PY{n}{elapsed\PYZus{}svc\PYZus{}stemming} \PY{o}{=} \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}svc\PYZus{}stm}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}svc\PYZus{}stm}\PY{p}{]}
+         \PY{n}{elapsed\PYZus{}svc\PYZus{}postag} \PY{o}{=} \PY{p}{[}\PY{n}{elapsed\PYZus{}w\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}b\PYZus{}svc\PYZus{}pst}\PY{p}{,} \PY{n}{elapsed\PYZus{}c\PYZus{}svc\PYZus{}pst}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{models\PYZus{}originals}\PY{p}{)}\PY{p}{)}
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.2}
+         
+         \PY{n}{rects1\PYZus{}elps} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{elapsed\PYZus{}originals}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultinomialNB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{skyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{rects2\PYZus{}elps} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{n}{width}\PY{p}{,} \PY{n}{elapsed\PYZus{}stemming}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultinomialNB + Stemming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{rects3\PYZus{}elps} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{width}\PY{p}{,} \PY{n}{elapsed\PYZus{}postag}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultinomialNB + Postag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightpink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add some text for labels, title and axes ticks}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elapsed time for MultinomialNB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{width} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects1\PYZus{}elps}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects2\PYZus{}elps}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects3\PYZus{}elps}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{models\PYZus{}originals}\PY{p}{)}\PY{p}{)}
+         \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.2}
+         
+         \PY{n}{rects1\PYZus{}elps} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{elapsed\PYZus{}svc}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LinearSVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{skyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{rects2\PYZus{}elps} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{n}{width}\PY{p}{,} \PY{n}{elapsed\PYZus{}svc\PYZus{}stemming}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LinearSVC + Stemming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{rects3\PYZus{}elps} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{width}\PY{p}{,} \PY{n}{elapsed\PYZus{}svc\PYZus{}postag}\PY{p}{,} 
+                         \PY{n}{width}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{n}{alp}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LinearSVC + Postag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightpink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add some text for labels, title and axes ticks}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elapsed time for LinearSVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{ind} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{width} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Words}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bigrams}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects1\PYZus{}elps}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects2\PYZus{}elps}\PY{p}{)}
+         \PY{n}{autolabel}\PY{p}{(}\PY{n}{rects3\PYZus{}elps}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_110_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Le temps d'exécution des modèles pour les caractères est largement plus
+élevé que pour les mots et les bigrammes. Cela est dû au grand nombre de
+données supplémentaires à prendre en compte en considérant les
+sous-chaînes de caractères.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
